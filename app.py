@@ -5,23 +5,19 @@ import yt_dlp
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/')
-def home():
-    return "Engine is Live!"
-
 @app.route('/api/download', methods=['GET'])
-def get_video():
+def download():
     url = request.args.get('url')
-    if not url: return jsonify({"error": "Link missing"}), 400
-    if "youtube" in url or "youtu.be" in url:
-        return jsonify({"error": "YouTube is blocked"}), 403
+    if not url:
+        return jsonify({"success": False, "error": "No URL"})
     try:
         ydl_opts = {'format': 'best', 'quiet': True}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
             return jsonify({"success": True, "download_link": info.get('url')})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"success": False, "error": str(e)})
 
-if __name__ == "__main__":
-    app.run()
+# یہ لائن Vercel کے لیے لازمی ہے
+def handler(event, context):
+    return app(event, context)
