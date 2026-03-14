@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "functions": {
-    "api/download.js": {
-      "runtime": "@vercel/node@3.0.0"
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
     }
-  }
+  ]
 }
