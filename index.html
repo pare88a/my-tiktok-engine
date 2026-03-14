@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My TikTok Downloader</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
+<body style="font-family:sans-serif;text-align:center;padding:40px;">
+
+<h2>My TikTok Downloader</h2>
+
+<input id="url" placeholder="Paste video link here" style="width:80%;padding:10px;">
+<br><br>
+
+<button onclick="download()" style="padding:10px 20px;">Download</button>
+
+<script>
+
+async function download(){
+
+let url=document.getElementById("url").value;
+
+let res=await fetch("/api/download?url="+encodeURIComponent(url));
+
+let data=await res.json();
+
+if(data.error){
+alert(data.error);
+return;
+}
+
+window.open(data.download);
+
+}
+
+</script>
+
+</body>
+</html>
