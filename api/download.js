@@ -1,21 +1,28 @@
 export default function handler(req, res) {
 
-const url=req.query.url;
+try {
+
+const { url } = req.query;
 
 if(!url){
-return res.status(400).json({error:"Video link required"});
+res.status(400).json({error:"Video URL required"});
+return;
 }
 
 // YouTube block
 if(url.includes("youtube.com") || url.includes("youtu.be")){
-return res.status(403).json({
-error:"YouTube downloading not allowed"
-});
+res.status(403).json({error:"YouTube download not allowed"});
+return;
 }
 
-// TikTok example response
-res.json({
+res.status(200).json({
 download:url
 });
+
+} catch(e){
+
+res.status(500).json({error:"Server error"});
+
+}
 
 }
