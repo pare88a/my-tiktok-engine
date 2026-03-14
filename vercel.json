@@ -1,13 +1,8 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
+      "source": "/api/(.*)",
+      "destination": "/api/app.py"
     }
   ]
 }
