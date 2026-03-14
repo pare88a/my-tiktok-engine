@@ -1,7 +1,8 @@
 {
+  "version": 2,
   "functions": {
-    "api/*.js": {
-      "runtime": "nodejs18.x"
+    "api/download.js": {
+      "runtime": "@vercel/node@3.0.0"
     }
   }
 }
